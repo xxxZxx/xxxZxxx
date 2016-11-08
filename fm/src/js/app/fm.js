@@ -367,39 +367,49 @@ var Fm = (function () {
             }
         }, // 获取音乐及音乐信息
         shuffleMusic: function () {
-            var _this = this,
+            var _this=this,
                 can = false;
-            if (_this.$channels.children().eq(0).hasClass('active')) {
+            if (_this.$channels.children().eq(0).hasClass("active")) {
                 (function () {
                     _this.randomCH();
                     can = true;
-
-                    if (can) {
-                        _this.getSong()
-                    }
-                    return
                 })();
+                if (can) {
+                    _this.getSong()
+                }
+                return
+            }
+            if (_this.$channels.children().hasClass("active")) {
+                _this.getSong();
+                return
             } else {
-                _this.getSong()
+                (function () {
+                    _this.randomCH();
+                    can = true;
+                })();
+                if (can) {
+                    _this.getSong()
+                }
+                return
             }
         },// 随机音乐
         listMusic: function () {
             var _this = this;
             if (_this.$myHistory.hasClass('active')) {
-                var idx = $.inArray(_this.$audio.data('data'), history),
-                    len = history.length;
-                if (idx !== -1 && idx <= len - 2) {
-                    audio.src = history[idx + 1].src;
-                    $audio.data('data', history[idx + 1]);
-                    getLrc(history[idx + 1].sid)
+                var idx = $.inArray(_this.$audio.data('data'), _this.history),
+                    len = _this.history.length;
+                if (idx != -1 && idx <= len - 2) {
+                    _this.audio.src =  _this.history[idx + 1].src;
+                    _this.$audio.data('data', _this.history[idx + 1]);
+                    _this.getLrc(_this.history[idx + 1].sid)
                 }
                 if (idx === len - 1) {
                     idx = -1;
                 }
                 if (idx === -1) {
-                    audio.src = history[0].src;
-                    $audio.data('data', history[0]);
-                    getLrc(history[0].sid);
+                    _this.audio.src = this.history[0].src;
+                    _this.$audio.data('data', _this.history[0]);
+                    _this.getLrc(_this.history[0].sid);
                     return
                 }
             }
@@ -407,7 +417,7 @@ var Fm = (function () {
                 var idx = $.inArray(_this.$audio.data('data'), _this.likeSong),
                     len = _this.likeSong.length;
                 if (idx != -1 && idx <= len - 2) {
-                    _this.$audio.attr('src', _this.likeSong[idx + 1].src);
+                    _this.audio.src =  _this.likeSong[idx + 1].src;
                     _this.$audio.data('data', _this.likeSong[idx + 1]);
                     _this.getLrc(_this.likeSong[idx + 1].sid)
                 }
@@ -415,7 +425,7 @@ var Fm = (function () {
                     idx = -1;
                 }
                 if (idx === -1) {
-                    audio.src = this.likeSong[0].src;
+                    _this.audio.src = this.likeSong[0].src;
                     _this.$audio.data('data', _this.likeSong[0]);
                     _this.getLrc(_this.likeSong[0].sid);
                     return

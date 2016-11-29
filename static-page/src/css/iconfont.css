@@ -1,0 +1,36 @@
+
+@font-face {font-family: "iconfont";
+  src: url('../iconfont/iconfont.eot?t=1480327836983'); /* IE9*/
+  src: url('../iconfont/iconfont.eot?t=1480327836983#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../iconfont/iconfont.woff?t=1480327836983') format('woff'), /* chrome, firefox */
+  url('../iconfont/iconfont.ttf?t=1480327836983') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../iconfont/iconfont.svg?t=1480327836983#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mail:before { content: "\e665"; }
+
+.icon-js:before { content: "\e619"; }
+
+.icon-wechat:before { content: "\e63b"; }
+
+.icon-phone:before { content: "\e602"; }
+
+.icon-css:before { content: "\e6a2"; }
+
+.icon-qq:before { content: "\e62e"; }
+
+.icon-github:before { content: "\ec76"; }
+
+.icon-html:before { content: "\e6c6"; }
+
+.icon-more:before { content: "\e617"; }
+

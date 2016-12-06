@@ -1,4 +1,3 @@
-// define(function(){
   var Exposure = (function($target){
     var _Exposure = function($target){
       this.$target = $target;
@@ -26,7 +25,6 @@
     }
     _Exposure.prototype.checkShow = function(){
           if (this.isShow(this.$target)) {
-            // console.log('ishow');
               this.lock = false;
               this.$target.animate({opacity: 1}, 200);
           }

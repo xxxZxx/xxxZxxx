@@ -1,70 +1,76 @@
 var gulp = require('gulp');
-
 // 引入组件
-var imgMin = require('gulp-imagemin'); // 图片压缩
-var concat = require('gulp-concat');  // 合并文件
-var uglify = require('gulp-uglify'); // js压缩
-var rename = require('gulp-rename'); // 重命名
-var clean = require('gulp-clean'); // 清空
-var htmlmin = require('gulp-htmlmin'); // 压缩html
-var cssnano = require('gulp-cssnano'); // css压缩
-var less = require('gulp-less');  // less转css
-var rjs = require('gulp-requirejs-optimize'); // rjs打包
-var browserSync = require('browser-sync'); // 浏览器
-var rev = require('gulp-rev');
-var revReplace = require('gulp-rev-replace');
+var htmlmin = require('gulp-htmlmin');              //- 压缩html
+var cssnano = require('gulp-cssnano');              //- css压缩
+var uglify = require('gulp-uglify');                //- js压缩
+var imagesMin = require('gulp-imagemin');           //- 图片压缩
+var concat = require('gulp-concat');                //- 合并文件
+var del = require('del');                             //- 清空文件夹
+var less = require('gulp-less');                    //- less转css
+var rev = require('gulp-rev');                      //- 对文件名加MD5后缀
 var useref = require('gulp-useref');
-var filter = require('gulp-filter');
+var browserSync = require('browser-sync').create(); //- 浏览器
+var revCollector = require('gulp-rev-collector');     //- 更换MD5后缀
+var runSequence =require('gulp-run-sequence');   //- 顺序执行任务
 
 
-gulp.task('clean-css', function () {
-    return gulp.src('dist/css')
-        .pipe(clean());
+//- 任务
+
+gulp.task('reload', function () {                       //- 刷新浏览器页面
+    browserSync.reload();
 });
-gulp.task('clean-js', function () {
-    return gulp.src('dist/js/app')
-        .pipe(clean());
+gulp.task('server', function () {                       //- 静态服务器监控
+    browserSync.init({
+        server: {baseDir: 'src'}
+    });
+    gulp.watch(['src/**/*.css', 'src/**/*.js', 'src/**/*.html'], ['reload'])
 });
-gulp.task('clean-html', function () {
-    return gulp.src('dist/index.html')
-        .pipe(clean());
+gulp.task('bfdel', function () {
+    del(['dist/**/*', '!dist/images', '!dist/images/**/*', '!dist/fonts', '!dist/fonts/*'])
 });
-gulp.task('clean-img', function () {
-    return gulp.src('dist/img')
-        .pipe(clean());
+gulp.task('afdel', function () {
+    del(['dist/css/merge.css','dist/js/merge.js'])
 });
-gulp.task('htmlmin', ['clean-html'], function () {
-    return gulp.src('src/index.html')
-        .pipe(htmlmin())
-        .pipe(gulp.dest('dist'))
+gulp.task("html", function () {
+    return gulp.src("src/index.html")
+        .pipe(useref())                                 //- 替换路径
+        .pipe(gulp.dest('dist'))                        //- 放入dist文件夹
 });
-gulp.task('css', ['clean-css'], function () {
+gulp.task('css', function () {
     return gulp.src('src/css/*.css')
-        .pipe(concat('merge.css'))
+        .pipe(concat("merge.css"))
         .pipe(cssnano())
-        .pipe(rename({
-            suffix: ".min"
-        }))
-        .pipe(gulp.dest('dist/css/'))
+        .pipe(rev())
+        .pipe(gulp.dest('dist/css'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('rev/css'))
 });
-gulp.task('js', ['clean-js'], function () {
+gulp.task('js', function () {
     return gulp.src('src/js/**/*.js')
-        .pipe(concat('merge.js'))
+        .pipe(concat("merge.js"))
         .pipe(uglify())
-        .pipe(rename({
-            suffix: ".min"
+        .pipe(rev())
+        .pipe(gulp.dest('dist/js'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('rev/js'))
+});
+gulp.task('rev', function () {
+    return gulp.src(['rev/**/*.json', 'dist/*.html'])
+        .pipe(revCollector({
+            replaceReved: true,
+            dirReplacements: {
+                'css': 'css/',
+                'js': 'js/'
+            }
         }))
-        .pipe(gulp.dest('dist/js/'))
+        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(gulp.dest('dist/'));
 });
-gulp.task('image', ['clean-img'], function () {
-    return gulp.src('src/img/*')
-        .pipe(imgMin())
-        .pipe(gulp.dest('dist/img/'))
+gulp.task('imagesmin', function () {
+    return gulp.src("src/images/*")
+        .pipe(imagesMin())
+        .pipe(gulp.dest('dist/images'))
 });
-
-
-gulp.task('build', ['css', 'js', 'image']);
-
-gulp.task('watch', function () {
-    gulp.watch("src/**/**", ['build'])
+gulp.task('build', function () {
+    runSequence('bfdel', 'css','js','html','rev','afdel');
 });

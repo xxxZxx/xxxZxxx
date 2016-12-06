@@ -1,4 +1,3 @@
-// define(function(){
   var Stickup = (function($node){
     var _Stickup = function($node){
       this.$cur = $node,//$('#nav'),
@@ -9,9 +8,6 @@
       this.curW = this.$cur.width();//记录并保存初始位置和长宽大小
       this.init();
       this.bind();
-      // this.isFixed();
-      // this.setFixed();
-      // this.unsetFixed();
     }
     _Stickup.prototype = {
       init:function(){
@@ -23,11 +19,9 @@
         var _this = this;
         $(window).on('scroll', function(){
           _this.scrollTop = $(this).scrollTop();
-          // console.log('当前window滚动' + scrollTop + '元素高度' + offsetTop);
           if (_this.scrollTop >= _this.offsetTop) {
             if (!_this.isFixed()) {
               _this.setFixed();
-              // console.log('执行setFixed');
             }
           } else if (_this.scrollTop < _this.offsetTop) {
             if (_this.isFixed()) {
@@ -49,11 +43,9 @@
           'z-index': 999
         });
         this.$curClone.show();//显示出来并占据文档流
-        // console.log($cur.data());
       },
       unsetFixed: function(){
         this.$cur.data('data-fixed', false).removeAttr('style');
-        // console.log($cur.data());
         this.$curClone.hide();
       }
     }

@@ -2,8 +2,6 @@
   var Carousel = (function($node){
     var _Carousel = function ($node){
       this.$carousel = $node;
-      // console.log(this.$ct);
-      // console.log(this.$ct.find('.next'));
       this.init();
       this.bind();
 
@@ -32,14 +30,9 @@
           $ct.css({left: 0 - imgWidth, width: imgRealCount * imgWidth});
       },
       bind:function(){
-        // console.log('bind');
-        console.log(this.$next);
-        console.log(this.$pre);
-        // console.log(this.$bullet);
 
           var _this = this;
           this.$next.on('click', function(){
-            // console.log('123');
             _this.playNext();
           });
           this.$pre.on('click', function(){
@@ -47,8 +40,6 @@
           });
           this.$bullet.on('click', 'li', function(){
             var idx = $(this).index();
-            // console.log('点击'+idx);
-            // console.log('当前'+_this.curIdx);
             if (idx > _this.curIdx) {
               _this.playNext(idx - _this.curIdx);
             } else if (idx < _this.curIdx) {
@@ -57,29 +48,15 @@
           });
       },
       playNext:function(skip){
-        // console.log('next');
         var _this = this;
-        // console.log(this);
-        // console.log(this.$ct);
             var skip = skip || 1;
-            // (function(){
-            // 	console.log('函数内的函数'+ this);
-            // })();
             if (!this.isAnimate) {
               this.isAnimate = true;
               this.$ct.animate({left: '-=' + (this.imgWidth * skip)}, function(){
-                // // console.log($(this));
-                // console.log(_this);
-                // console.log('差值为'+skip);
-                // console.log('变化前curIdx='+_this.curIdx);
-                // console.log('公式curIdx+skip='+(_this.curIdx + skip));
-                // console.log('imgCount='+ _this.imgCount);
               _this.curIdx = (_this.curIdx + skip) % _this.imgCount;
               if (_this.curIdx == 0) {
                 _this.$ct.css({left: 0 - _this.imgWidth});
               }
-              // console.log('计算后curIdx='+_this.curIdx);
-              // console.log('---');
               _this.isAnimate = false;
                 _this.setBullet();
               })
@@ -93,16 +70,10 @@
             if (!this.isAnimate) {
               this.isAnimate = true;
               this.$ct.animate({left: '+=' + (this.imgWidth * skip)}, function(){
-                  // console.log('差值为'+ (-skip));
-                  // console.log('变化前curIdx='+_this.curIdx);
-                  // console.log('公式imgCount + curIdx - skip='+(_this.imgCount + _this.curIdx - skip));
-                  // console.log('imgCount='+_this.imgCount);
                 _this.curIdx = (_this.imgCount + _this.curIdx - skip) % _this.imgCount;
                 if (_this.curIdx == (_this.imgCount - 1)) {
                   _this.$ct.css({left: 0 - _this.imgWidth * _this.imgCount});
                 }
-                // console.log('计算后curIdx='+_this.curIdx);
-                // console.log('---');
                 _this.isAnimate = false;
                 _this.setBullet();
               })
@@ -120,7 +91,6 @@
           var _this = this;
             clock = setInterval(function(){
               _this.playNext();
-              // console.log('auto');
             }, 3000);
       },
       setBullet:function(){
@@ -143,5 +113,3 @@
     }
   })();
 Carousel.init($('.carousel'));
-//   return Carousel;
-// })

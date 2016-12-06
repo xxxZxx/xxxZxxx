@@ -1,4 +1,4 @@
-// define(function(){
+
   var Lazy = (function(){
     var Exposure = function($target){
       this.$target = $target;
@@ -21,7 +21,7 @@
       var _this = this;
       $.ajax({
           url: 'http://platform.sina.com.cn/slide/album_tech',
-          dataType: 'jsonp', //直接看数据， 如： http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4
+          dataType: 'jsonp',
           jsonp: 'jsoncallback',
           data: {
               app_key: '1271687855',
@@ -41,12 +41,12 @@
       var $nodes = this.renderData(nodeArr); //经过渲染后的节点
       var _this = this;
       $nodes.find('img').on('load', function() {
-          waterFall($(this).parents('.item'), _this.$target); //小坑一个,记得找当前的.
+          waterFall($(this).parents('.item'), _this.$target);
       });
     }
     Exposure.prototype.renderData = function(items){
-      var tpl = '', //原生JSdom
-          $nodes; //jquerydom
+      var tpl = '',
+          $nodes;
       for (var i = 0; i < items.length; i++) {
           tpl += '<li class="item">';
           tpl += '<a href="' + items[i].cmnt_url + '" class="link">';
@@ -100,5 +100,3 @@
   })()
   Lazy.init($('.portfolio-ct'));
   $('.load').click();
-//   return Lazy;
-// })

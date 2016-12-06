@@ -1,4 +1,3 @@
-// define(function(){
   var GoTop = function(){
   	this.target;
   	this.createNode();
@@ -15,18 +14,13 @@
     		} else {
     			_this.target.style.display = 'none';
     		}
-    	})//document.documentElement 为根节点
+    	})
   }
   GoTop.prototype.createNode = function(){
      	var target = document.createElement('div');
      	this.target = target;
     	this.target.style.cssText = 'display: none; background: #fed136; color:#fff; position:fixed; right:30px; bottom:20px;   padding: 10px;border-radius: 3px;cursor: pointer;'
-    	this.target.innerHTML = '回到顶部';
+    	this.target.innerHTML = 'TOP';
     	document.body.appendChild(this.target);
   }
-  // return GoTop;
   var GoTop = new GoTop();
-// })
-
-
-//jquery实现

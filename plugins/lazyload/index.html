@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>lazyload</title>
+    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        #ct {
+            margin: 0 auto;
+            width: 360px;
+        }
+
+        #ct > li {
+            text-align: center;
+            width: 360px;
+            margin-top: 10px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #3c763d;
+
+        }
+
+        #ct > li:hover {
+            background-color: #1b6d85;
+        }
+
+        #btn {
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            width: 80px;
+            border: 1px solid #1b6d85;
+            border-radius: 8px;
+            background-color: rgba(30, 110, 135, 0.8);
+        }
+
+        #btn:hover {
+            background-color: rgba(30, 110, 135, 1);
+
+        }
+    </style>
+</head>
+<body>
+<ul id="ct">
+    <li>内容1</li>
+    <li>内容2</li>
+</ul>
+<a href="javascript:void(0);" id="btn">加载更多</a>
+<script>
+    var ajax = function (opts) {
+        var xhr,
+            method = opts.method || 'get',
+            url = opts.url || null,
+            dataType = opts.dataType || 'text',
+            data = opts.data || null,
+            async = opts.async || true;
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest()
+        } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        var params = [];
+        for (var key in data) {
+            params.push(key + '=' + data[key])
+        }
+        var dataStr = params.join('&');
+        if (method.toLowerCase() === 'get') {
+            xhr.open(method, url + '?' + dataStr, async);
+            xhr.send()
+        } else if (method.toLowerCase() === 'post') {
+            xhr.open(method, url, async);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send(dataStr)
+        }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var res;
+                if (dataType.toLowerCase() === 'text') {
+                    res = xhr.responseText
+                } else if (dataType.toLowerCase() === 'json') {
+                    res = JSON.parse(xhr.responseText);
+                }
+                opts.success(res)
+            } else if (xhr.readyState === 4 && xhr.status === 404) {
+                opts.error()
+            }
+        };
+    };
+    function $(cls) {
+        str = cls.substr(1, cls.length - 1);
+        if (cls[0] === '.') {
+            return document.getElementsByClassName(str)
+        } else if (cls[0] === '#') {
+            return document.getElementById(str)
+        } else {
+            return document.getElementsByTagName(str)
+        }
+    }
+    Object.prototype.on = function (event, func) {
+        this.addEventListener(event, func)
+    };
+    var cur = 2;
+    $('#btn').on('click', function () {
+        ajax({
+            method: 'get',
+            url: 'loadmore.php',
+            dataType: 'json',
+            data: {
+                len: 4,
+                start: cur
+            },
+            success: function (res) {
+                cur += 4;
+                var arr = res.data;
+                for (var i = 0; i < arr.length; i++) {
+                    var li = document.createElement('li');
+                    li.innerText = arr[i];
+                    $('#ct').appendChild(li);
+                }
+            },
+            error: function () {
+                alert("404，Not Found")
+            }
+        })
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+[v-cloak] {
+    display: none;
+}
+:root {
+    --blue: #6bf;
+    --dark-gray: #4d4d4d;
+    --light-gray: #B3B3B3;
+}
+body {
+    /* font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Source Han Sans CN,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif; */
+    font-family: Georgia,Times New Roman,Times,Songti SC,serif;
+    color: var(--dark-gray);
+    font-weight: lighter;
+    font-size: 0.8rem;
+    width: 100%;
+    overflow-x: hidden;
+    position:relative;
+}
+#resume {
+    width: 100%;
+    overflow-x: hidden;
+    position:relative;
+}
+h1,h2,h3,h4,h5,h6,a,p {
+    margin: 0;
+    padding: 0;
+    font-weight: lighter;
+}
+h2,h3 {
+    margin: 20px 0;
+}
+h2 {
+    color: var(--blue);
+}
+h2 > span {
+    font-size: 2rem;
+    color: white;
+}
+.blue {
+    color: var(--blue);
+}
+.light-gray {
+    color: var(--light-gray);
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:visited {
+    color: inherit;
+}
+a:hover {
+    color: var(--blue);
+}
+ul,li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 2.5rem;
+}
+.cls-1{
+    fill:#fff;
+}
+.browser-upgrade,
+.page-loading {
+    text-align: center;
+}
+.header {
+    width: 90%;
+    max-width: 1600px;
+    display: flex;
+    margin: 10px auto 30px auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.welcome {
+    min-width: 322px;
+    min-height: 115px;
+}
+.welcome h1 {
+    font-size: 100px;
+    color: black;
+}
+.cursor {
+    animation:flicker 1.2s infinite;
+}
+@keyframes flicker{
+    0%{opacity: 1;}
+    50%{opacity: 0;}
+    100%{opacity: 1;}
+}
+.contact {
+    /* min-width: 400px; */
+    margin-top: 20px;
+}
+.contact .sub {
+    font-size: 0.8rem;
+    font-weight: lighter;
+    margin-left: 1rem;
+    color: var(--blue);
+}
+.contact > p > span {
+    line-height: 1.5rem;
+    padding: 0 20px;
+    border-left: 1px solid black;
+}
+.contact > p > span:first-child {
+    padding: 0;
+    padding-right: 20px;
+    border-left: none;
+}
+.triangle {
+    width: 0;
+    height: 0;
+    border-bottom: 3vw solid black;
+    border-left: 100vw solid transparent;
+}
+
+.container {
+    background-color: black;
+    color: white;
+    padding: 50px 0;
+}
+.main {
+    width: 90%;
+    max-width: 1600px;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.main > section {
+    width: 40%;
+    flex-basis: 50;
+    /* min-width: 360px; */
+}
+.person {
+    width: 100vw;
+    overflow: hidden;
+}
+.person > svg {
+    position: absolute;
+    transform: rotateY(180deg);
+    width: 200px;
+    height: 200px;
+    left: 55vw;
+    top: 56px;
+}
+.profile li {
+    color: var(--light-gray);
+}
+.skillset p {
+    color: var(--light-gray);
+}
+.progress {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+.project img {
+    width: 70px;
+    height: 70px;
+    border: 2px solid var(--light-gray);
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 30px;
+}
+.project li {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+    cursor: pointer;
+}
+.project li:hover {
+    color: var(--blue);
+}
+.project li:hover img {
+    border: 2px solid var(--blue);
+}
+.project li > a {
+    display: block;
+}
+.project p > span {
+    color: var(--light-gray);
+    line-height: 1.5rem;
+    padding: 0 20px;
+    border-left: 1px solid var(--light-gray);
+}
+.project p > span:first-child {
+    padding: 0;
+    padding-right: 20px;
+    border-left: none;
+}
+footer {
+    background-color: black;
+    text-align: center;
+    padding: 30px 0;
+    color: var(--blue);
+}
+@media only screen and (min-width: 1601px) {
+    .person > svg {
+        top: 56px;
+    }
+}
+@media only screen and (min-width: 1201px) and (max-width: 1600px){
+    .person > svg {
+        left: 50vw;
+    }
+}
+@media only screen and (min-width: 800px) and (max-width: 1200px){
+    .person > svg {
+        left: 40vw;
+    }
+}
+@media only screen and (min-width: 431px) and (max-width: 800px) {
+    .contact {
+        padding-left: 20px;
+    }
+    .person > svg {
+        left: 80vw;
+        top: 145px;
+    }
+    .main > section {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 430px) {
+    .contact {
+        padding-left: 20px;
+    }
+    .person > svg {
+        left: 80vw;
+        top: 165px;
+    }
+    .main > section {
+        width: 100%;
+    }
+}

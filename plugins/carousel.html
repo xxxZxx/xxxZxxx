@@ -98,10 +98,10 @@
 <body>
 <div class="carousel">
     <ul class="img-ct clearfix">
-        <li><a href="#"><img src="http://p1.bpimg.com/568609/fb91c621856b622cs.jpg" alt=""></a></li>
-        <li><a href="#"><img src="http://p1.bpimg.com/568609/f7481da5d43a5034s.jpg" alt=""></a></li>
-        <li><a href="#"><img src="http://p1.bpimg.com/568609/f7872ca29ecaa158s.jpg" alt=""></a></li>
-        <li><a href="#"><img src="http://p1.bqimg.com/568609/bc47affd6377af92s.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/1.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/2.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/3.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/4.jpg" alt=""></a></li>
     </ul>
     <a href="#" class="pre arrow"><</a>
     <a href="#" class="next arrow">></a>
@@ -110,24 +110,25 @@
 </div>
 <div class="carousel">
     <ul class="img-ct clearfix">
-        <li><a href="#"><img src="http://p1.bqimg.com/568609/3001571f6440eaa8s.jpg" alt=""></a></li>
-        <li><a href="#"><img src="http://p1.bqimg.com/568609/9892e13c4ae24d72s.jpg" alt=""></a></li>
-        <li><a href="#"><img src="http://p1.bqimg.com/568609/96d5afc96110cf3cs.jpg" alt=""></a>
+        <li><a href="#"><img src="../src/img/1.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/2.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/3.jpg" alt=""></a>
         </li>
-        <li><a href="#"><img src="http://p1.bqimg.com/568609/51cbf41c5df0e582s.jpg" alt=""></a></li>
+        <li><a href="#"><img src="../src/img/4.jpg" alt=""></a></li>
     </ul>
     <a href="#" class="pre arrow"><</a>
     <a href="#" class="next arrow">></a>
     <ul class="bullet">
     </ul>
 </div>
-<script src="../src/jQuery.js"></script>
+<script src="../src/jquery.min.js"></script>
 <script>
     function Carousel($node) {
         this.$ct = $node;
         this.init();
         this.bind();
     }
+
     Carousel.prototype = {
         init: function () {
             var $ct = this.$ct = this.$ct.find('.img-ct'),

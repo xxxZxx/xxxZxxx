@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3d-banner</title>
+    <style>
+        body{
+            /*background-color: black;*/
+            /*height: 100%;*/
+        }
+        #panel{
+            width: 800px;
+            height: 400px;
+            background-color: steelblue;
+            margin: 50px auto;
+            border-radius: 10px;
+            border: 1px solid silver;
+            /*transition: transform 0.3s cubic-bezier(.25,.46,.45,.94);*/
+            transition: transform 0.3s linear;
+        }
+    </style>
+</head>
+<body>
+<div id="panel"
+     :style="{ transform: generateTransform }"
+     v-on:mousemove="move(this.event)"
+     v-on:mouseleave="leave(this.event)"
+></div>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#panel',
+        data() {
+            return {
+                angleX: 0,
+                angleY: 0,
+            }
+        },
+        methods: {
+            move(e) {
+                let halfWidth = e.target.scrollWidth / 2;
+                let halfHeight = e.target.scrollHeight / 2;
+                let mouseX = e.pageX - e.target.offsetLeft;
+                let mouseY = e.pageY - e.target.offsetTop;
+                let offsetX = halfWidth - mouseX;
+                let offsetY = halfHeight - mouseY;
+                let percentX = offsetX / halfWidth;
+                let percentY = offsetY / halfHeight;
+                this.angleX  = percentY * 10;
+                this.angleY = -percentX * 10;
+            },
+            leave(e) {
+                this.angleX  = 0;
+                this.angleY = 0;
+            }
+        },
+        computed: {
+            generateTransform() {
+                return `perspective(3000px) rotateX(${this.angleX}deg) rotateY(${this.angleY}deg)`;
+            },
+        },
+    })
+</script>
+</body>
+</html>
